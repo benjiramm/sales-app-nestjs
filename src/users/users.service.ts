@@ -3,18 +3,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
-
+import { CreateUserDto } from './dtos/users.create.dto';
 @Injectable()
 export class UsersService {
     constructor(@InjectModel(User.name) private readonly model: Model<UserDocument> ){}
 
-    async addUser(@Body() newUser: User){
-        const user = await this.getUserByUsername(newUser.username)
-        if(user) {
-            throw new BadRequestException({message: "This user already exists"})
-        }
+    async create(createUserDto: CreateUserDto){
+        const user = await this.getUserByUsername(createUserDto.username)
 
-        return await new this.model(newUser).save()
+        if(user) { throw new BadRequestException({message: "This user already exists"}) }
+
+
+        return await new this.model(createUserDto).save()
     }
 
     async getUserByUsername( username: string): Promise<User>{
