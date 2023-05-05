@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { StaffModule } from './staff/staff.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     MongooseModule.forRoot(process.env.MONGOURI),
     UsersModule,
-    AuthModule],
+    AuthModule,
+    StaffModule],
   controllers: [AppController],
   providers: [AppService],
 })

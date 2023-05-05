@@ -1,11 +1,12 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Request, Res, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dtos/auth.login-user.dto';
 
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
     constructor(
@@ -22,8 +23,8 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @ApiBearerAuth()
-    @Get('profile')
-    @ApiOperation({summary: 'get current user'})
+    @Get()
+    @ApiOperation({summary: 'get authenticated user'})
     @ApiResponse({status: 200, type: User})
     getProfile(@Request() req){
         return this.usersService.getUserById(req.user.sub)

@@ -1,15 +1,14 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { Prop } from '@nestjs/mongoose';
-import { ApiBearerAuth, ApiHeader, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { LoginUserDto } from 'src/auth/dtos/auth.login-user.dto';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
-    @Inject()
-    usersService: UsersService;
+    constructor(private readonly usersService: UsersService){}
 
     @UseGuards(AuthGuard)
     @Get()
