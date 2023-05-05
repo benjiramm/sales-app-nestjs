@@ -30,7 +30,7 @@ export class StaffService {
     }
 
     async updateStaff(id: string, createStaffDto: CreateStaffDto){
-        const staff = this.findById(id)
+        const staff = await this.findById(id)
         console.log(staff)
         if(!staff) {
             throw new HttpException('Staff not found', HttpStatus.NOT_FOUND)
