@@ -22,7 +22,6 @@ export class ItemsService {
 
     async create(createItemDto: CreateItemDto){
         const item = await this.getByName(createItemDto.name)
-        console.log(item)
         if (item) {
             throw new HttpException('Item with same name already exists!', HttpStatus.BAD_REQUEST)
         }
