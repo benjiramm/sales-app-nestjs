@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Dayjs } from 'dayjs';
-import { Model } from 'mongoose';
+import * as dayjs from 'dayjs';
+import mongoose, { Schema, Model } from 'mongoose';
 import { CreateLogDto } from './dtos/logs.create-log.dto';
 import { Log, LogDocument } from './schemas/logs.schema';
 
@@ -13,14 +13,17 @@ export class LogsService {
         return await this.model.findById(id)
     }
 
-    async create(createLogDto: CreateLogDto, timestamp: Dayjs, author: string){
+    async create(createLogDto: CreateLogDto, timestamp: dayjs.Dayjs, author: string){
         const newLog = {
             ...createLogDto,
-            timestamp: timestamp.format(),
+            date: new Date(createLogDto.date),
+            timestamp: timestamp,
             author: author
         }
+        const added = await new this.model(newLog).save()
 
-        return await new this.model(newLog).save()
+        console.log(added)
+        return added
     }
 
     async update(id: string, createLogDto: CreateLogDto, user ){

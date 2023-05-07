@@ -1,11 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose from "mongoose";
 
 export type ItemDocument = Item & Document
 
 @Schema()
 export class Item {
     @Prop({required: true})
-    name: string;
+    item_name: string;
 
     @Prop({required: true})
     value_morning: number
@@ -16,7 +17,7 @@ export class Item {
     @Prop()
     icon: string
 
-    _id: string;
+    _id: mongoose.Types.ObjectId;
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item)

@@ -39,7 +39,7 @@ export class LogsController {
     update(@Param('log_id') log_id: string, @Body() createLogDto:CreateLogDto, @Req() req){
         return this.logsService.update(log_id,createLogDto,req.user)
     }
-    
+
     @UseGuards(AuthGuard)
     @ApiOperation({summary: 'delete log by id'})
     @ApiResponse({status: 200, type: Log})

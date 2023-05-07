@@ -30,6 +30,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/dotenv": "^8.2.0",
+    "@types/mongoose": "^5.11.97",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
     "bcrypt": "^5.1.0",

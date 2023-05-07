@@ -4,7 +4,7 @@ import { IsNumber, IsString } from "class-validator"
 export class CreateItemDto {
     @ApiProperty({description: 'item name', example: 'cocktail'})
     @IsString()
-    name: string
+    item_name: string
 
     @ApiProperty({description: 'value of item in a morning shift', example: 5})
     @IsNumber()

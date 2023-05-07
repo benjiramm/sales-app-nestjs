@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { StaffModule } from './staff/staff.module';
 import { ItemsModule } from './items/items.module';
 import { LogsModule } from './logs/logs.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { LogsModule } from './logs/logs.module';
     AuthModule,
     StaffModule,
     ItemsModule,
-    LogsModule],
+    LogsModule,
+    LeaderboardModule],
   controllers: [AppController],
   providers: [AppService],
 })
