@@ -9,6 +9,7 @@ import { StaffModule } from './staff/staff.module';
 import { ItemsModule } from './items/items.module';
 import { LogsModule } from './logs/logs.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
+import { ShiftsModule } from './shifts/shifts.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
     StaffModule,
     ItemsModule,
     LogsModule,
-    LeaderboardModule],
+    LeaderboardModule,
+    ShiftsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -13,6 +13,7 @@ export class LogsService {
         return await this.model.findById(id)
     }
 
+    // timestamp is a parameter because I want to be able to add multiple shifts as one and them having exactly the same timestamp
     async create(createLogDto: CreateLogDto, timestamp: dayjs.Dayjs, author: string){
         const newLog = {
             ...createLogDto,
