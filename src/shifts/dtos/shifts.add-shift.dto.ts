@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-class SaleInStaff {
+export class SaleInStaff {
     @ApiProperty({description: 'item id', example: '<item_id>'})
     item: string
 
@@ -8,12 +8,12 @@ class SaleInStaff {
     amount: number
 }
 
-class StaffInShift {
+export class StaffInShift {
     @ApiProperty({description: 'staff id', example: '<staff_id>'})
     staff: string
 
-    @ApiProperty({description: 'items sold by staff in shift', type: SaleInStaff})
-    sales: [SaleInStaff]
+    @ApiProperty({description: 'items sold by staff in shift', type: [SaleInStaff]})
+    sales: SaleInStaff[]
 }
 
 export class AddShiftDto {
@@ -23,8 +23,8 @@ export class AddShiftDto {
     @ApiProperty({description: 'corresponding date of shift', example: '2023-5-6'}) // YYYY-MM-DD
     date: string
 
-    @ApiProperty({description: 'staff that worked in the shift', type: StaffInShift})
-    staff: [StaffInShift]
+    @ApiProperty({description: 'staff that worked in the shift', type: [StaffInShift]})
+    staff: StaffInShift[]
 }
 
 
