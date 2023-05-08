@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { LeaderboardService } from './leaderboard.service';
 
 @ApiTags('Leaderboard')
@@ -14,9 +15,11 @@ export class LeaderboardController {
         return this.leaderboardService.getThisWeek()
     }
 
+    @UseGuards(AuthGuard)
     @Get(':date')
     @ApiOperation({description: 'get leaderboard of specific date'})
     @ApiResponse({status: 200})
+    @ApiBearerAuth()
     get (@Param('date') date: string){
         return this.leaderboardService.getLeaderboard(new Date(date))
     }
