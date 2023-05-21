@@ -8,8 +8,8 @@ import { ShiftsController } from './shifts.controller';
 import { ShiftsService } from './shifts.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: Log.name, schema: LogSchema}])],
+  imports: [MongooseModule.forFeature([{ name: Log.name, schema: LogSchema }])],
   controllers: [ShiftsController],
-  providers: [ShiftsService]
+  providers: [ShiftsService],
 })
 export class ShiftsModule {}

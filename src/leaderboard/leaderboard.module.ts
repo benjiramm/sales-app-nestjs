@@ -6,8 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Log, LogSchema } from 'src/logs/schemas/logs.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: Log.name,schema: LogSchema}])],
+  imports: [MongooseModule.forFeature([{ name: Log.name, schema: LogSchema }])],
   providers: [LeaderboardService, LogsModule],
-  controllers: [LeaderboardController]
+  controllers: [LeaderboardController],
 })
 export class LeaderboardModule {}

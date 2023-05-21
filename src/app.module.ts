@@ -15,7 +15,7 @@ import { ShiftsModule } from './shifts/shifts.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
+      envFilePath: '.env',
     }),
     MongooseModule.forRoot(process.env.MONGOURI),
     UsersModule,
@@ -24,7 +24,8 @@ import { ShiftsModule } from './shifts/shifts.module';
     ItemsModule,
     LogsModule,
     LeaderboardModule,
-    ShiftsModule],
+    ShiftsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
