@@ -4,7 +4,7 @@ import NavItem from "./Link"
 
 const MENU_LIST = [
   { text: "תוצאות התחרות", href: "/" },
-  { text: "פריטים שניתן למכור", href: "/about" }
+  { text: "פריטים שניתן למכור", href: "/items" }
 ]
 
 
