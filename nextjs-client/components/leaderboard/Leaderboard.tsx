@@ -15,7 +15,7 @@ const Leaderboard = ({date}: leaderboardProps) => {
     <div className={styles.sales_list}>
         {isSuccess ? leaderboard.map(row => 
         <>
-            <LeaderboardRow {...row}/>
+            <LeaderboardRow {...row} />
         </>): <></>}
     </div>
     </>

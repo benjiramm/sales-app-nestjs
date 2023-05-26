@@ -1,0 +1,64 @@
+
+.login_form {
+    font-family: 'Secular One', sans-serif;
+    margin: 1em 1em;
+    padding: .5em;
+    border-radius: 2em;
+    background-color: #e1e1e1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.login_section {
+    margin: 1em;
+    align-self: center;
+    text-align: right;
+    font-size: 1.2em;
+}
+
+.input_line {
+    display: flex;
+    align-items: center;
+}
+
+.login_section input {
+    font-family: 'Secular One', sans-serif;
+    background-color: transparent;
+    border-style: none none solid none;
+    border-width: 3px;
+    font-size: 1.5em;
+    margin-right: .5em;
+    flex-shrink: 3;
+}
+
+.button {
+    font-family: 'Secular One', sans-serif;
+    margin: .5em;
+    padding: 0.8em;
+    border-radius: 2em;
+    background-color: green;
+    color: white;
+    border-color: green;
+    border-style: solid;
+    border-width: 2px;
+    font-size: 1.2em;
+    /* drop shadow */
+    filter: drop-shadow(3px 4px 3px #777);
+    transition: 0.3s;
+}
+
+.button:hover {
+    border-style: solid;
+    color: black;
+    border-color: black;
+    background-color: transparent;
+    border-radius: .2em;
+}
+
+@media screen and (min-width: 768px) {
+    .login_form {
+        margin: 1em 5em;
+    }
+}

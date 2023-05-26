@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import Navbar from '../components/Navbar'
 import Leaderboard from '../components/leaderboard/Leaderboard'
 
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -12,10 +14,16 @@ export default function Home() {
     <>
       <Head>
         <title>תחרות מחירות</title>
-        <Script src="https://kit.fontawesome.com/eaa094e850.js" crossOrigin="anonymous"/>
+        
       </Head>
       <Navbar/>
-      <Leaderboard date={new Date('2023-5-23')}/>
+      <div className='page'>
+        <h1 className='title'>תחרות מכירות ג'פניקה צמח</h1>
+        <p className='sub-title'>תוצאות של שבוע נוכחי</p>
+        
+        <Leaderboard date={new Date('2023-5-23')}/>
+      </div>
+      
     </>
   )
 }
