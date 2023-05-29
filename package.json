@@ -39,6 +39,7 @@
     "bcrypt": "^5.1.0",
     "class-validator": "^0.14.0",
     "concurrently": "^8.0.1",
+    "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "mongoose": "^7.1.0",
