@@ -1,4 +1,4 @@
-import { useLogin } from '@/hooks/useLogin'
+import { useLogin } from '../../hooks/useLogin'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import styles from './login.module.css'

@@ -4,6 +4,8 @@ import { compare } from 'bcrypt';
 import { use } from 'passport';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dtos/auth.login-user.dto';
+import { Response } from 'express';
+import cookieParser from 'cookie-parser';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +14,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(loginUserDto: LoginUserDto): Promise<any> {
+  async signIn(loginUserDto: LoginUserDto, response: Response): Promise<any> {
     const user = await this.usersService.getUserByUsername(
       loginUserDto.username,
     );
@@ -35,8 +37,13 @@ export class AuthService {
       sub: user._id,
       is_admin: user.is_admin,
     };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+
+    const jwt = await this.jwtService.signAsync(payload);
+    response.cookie('token', jwt, {
+      maxAge: 3600, //1 hour
+      httpOnly: true,
+      path: '/',
+    });
+    return response.send('logged in successfully');
   }
 }

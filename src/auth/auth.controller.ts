@@ -21,6 +21,7 @@ import { UsersService } from 'src/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dtos/auth.login-user.dto';
+import { Response } from 'express';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -34,8 +35,8 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: 'login user' })
   @ApiResponse({ status: 200, type: User })
-  signIn(@Body() loginUserDto: LoginUserDto) {
-    return this.authService.signIn(loginUserDto);
+  signIn(@Body() loginUserDto: LoginUserDto, @Res() response: Response) {
+    return this.authService.signIn(loginUserDto, response);
   }
 
   @UseGuards(AuthGuard)
