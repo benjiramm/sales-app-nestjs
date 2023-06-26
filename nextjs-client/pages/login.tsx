@@ -2,6 +2,7 @@ import LoginForm from "../components/login/LoginForm"
 import Navbar from "../components/Navbar"
 
 const LoginPage = () => {
+
     return <>
         <Navbar/>
         <div className="page">
