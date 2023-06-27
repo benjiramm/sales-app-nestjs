@@ -40,7 +40,7 @@ export class AuthService {
 
     const jwt = await this.jwtService.signAsync(payload);
 
-    console.log(jwt)
+    console.log(jwt);
     response.cookie('token', jwt, {
       maxAge: 3600, //1 hour
       httpOnly: true,
