@@ -20,7 +20,10 @@ export class AuthService {
     );
     if (!user) {
       // user doesn't exist
-      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'שם משתמש או סיסמא אינם תקינים',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const isPasswordMatching = await compare(
@@ -29,7 +32,10 @@ export class AuthService {
     );
     if (!isPasswordMatching) {
       // user exists but password is incorrect
-      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'שם משתמש או סיסמא אינם תקינים',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const payload = {
@@ -40,9 +46,8 @@ export class AuthService {
 
     const jwt = await this.jwtService.signAsync(payload);
 
-    console.log(jwt)
     response.cookie('token', jwt, {
-      maxAge: 3600, //1 hour
+      expires: new Date(new Date().getTime() + 30 * 1000 * 60), //1 hour
       httpOnly: true,
       path: '/',
     });

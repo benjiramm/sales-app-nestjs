@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nest start -0",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "dev": "concurrently \"nest start\" \"cd nextjs-client && npm run dev\""
+    "dev": "concurrently \"nest start\" \"cd nextjs-client && npm run dev \""
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -35,11 +35,11 @@
     "@types/mongoose": "^5.11.97",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
-    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "class-validator": "^0.14.0",
     "concurrently": "^8.0.1",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "mongoose": "^7.1.0",

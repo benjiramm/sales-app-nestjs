@@ -21,7 +21,7 @@ import { UsersService } from 'src/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dtos/auth.login-user.dto';
-import { Response } from 'express';
+import { Response, response } from 'express';
 
 @ApiTags('Authentication')
 @Controller('auth')

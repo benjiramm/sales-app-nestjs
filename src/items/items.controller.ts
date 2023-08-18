@@ -20,6 +20,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateItemDto } from './dtos/items.add-item.dto';
 import { ItemsService } from './items.service';
 import { Item } from './schemas/items.schema';
+import { Request } from 'express';
 
 @ApiTags('Items')
 @Controller('items')

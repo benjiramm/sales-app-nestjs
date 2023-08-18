@@ -2,14 +2,16 @@ import { useLogin } from '../../hooks/useLogin'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import styles from './login.module.css'
+import axios from 'axios'
 
 const LoginForm = () => {
 
     const [formState, setFormState] = useState({ username: "", password: ""})
 
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = async () => {
+        const user = await axios.post('http://localhost:3000/auth/login', formState)
+        console.log(user)
     }
 
     return (

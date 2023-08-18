@@ -18,17 +18,21 @@ export class ShiftsService {
     const timestamp = dayjs();
     addShiftDto.staff.map((staff_member) => {
       staff_member.sales.map((sale) => {
-        const newLog = {
-          ...sale, // item_id + amount
-          shift_type: addShiftDto.shift_type,
-          date: new Date(addShiftDto.date),
-          staff: staff_member.staff,
-          timestamp: timestamp,
-          author: author,
-        };
+        if (sale.amount > 0) {
+          const newLog = {
+            ...sale, // item_id + amount
+            shift_type: addShiftDto.shift_type,
+            date: new Date(addShiftDto.date),
+            staff: staff_member.staff,
+            timestamp: timestamp,
+            author: author,
+          };
 
-        logsToAdd.push(newLog);
+          logsToAdd.push(newLog);
+        }
       });
+
+      console.log('added shift');
     });
 
     return await this.model.insertMany(logsToAdd);
@@ -71,6 +75,14 @@ export class ShiftsService {
         },
       },
       {
+        $lookup: {
+          from: 'users',
+          localField: 'author',
+          foreignField: '_id',
+          as: 'author_doc',
+        },
+      },
+      {
         $replaceRoot: {
           newRoot: {
             $mergeObjects: [
@@ -79,6 +91,9 @@ export class ShiftsService {
               },
               {
                 $arrayElemAt: ['$item_doc', 0],
+              },
+              {
+                $arrayElemAt: ['$author_doc', 0],
               },
               '$$ROOT',
             ],
@@ -119,6 +134,8 @@ export class ShiftsService {
             date: '$date',
             shift_type: '$shift_type',
             icon: '$icon',
+            author: '$author',
+            username: '$username',
           },
         },
       },
@@ -130,6 +147,8 @@ export class ShiftsService {
             staff_name: '$_id.staff_name',
             shift_type: '$_id.shift_type',
             date: '$_id.date',
+            author: '$_id.author',
+            username: '$_id.username',
           },
           sales: {
             $addToSet: {
@@ -149,6 +168,8 @@ export class ShiftsService {
             timestamp: '$_id.timestamp',
             date: '$_id.date',
             shift_type: '$_id.shift_type',
+            author: '$_id.author',
+            username: '$_id.username',
           },
           staff: {
             $addToSet: {
@@ -171,15 +192,33 @@ export class ShiftsService {
           clusters: {
             $addToSet: {
               timestamp: '$_id.timestamp',
+              author: '$_id.author',
+              username: '$_id.username',
               staffs: '$staff',
             },
           },
         },
       },
       {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [
+              {
+                date: '$_id.date',
+                shift_type: '$_id.shift_type',
+              },
+              '$$ROOT',
+            ],
+          },
+        },
+      },
+      {
+        $unset: '_id',
+      },
+      {
         $sort: {
           date: -1,
-          shift_type: -1,
+          shift_type: 1,
         },
       },
     ]);
