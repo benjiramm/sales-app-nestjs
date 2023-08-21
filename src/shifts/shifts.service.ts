@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as dayjs from 'dayjs';
-import { Model } from 'mongoose';
+import { Model, Mongoose, Types } from 'mongoose';
 import { LogsService } from 'src/logs/logs.service';
 import { Log, LogDocument } from 'src/logs/schemas/logs.schema';
 import { AddShiftDto } from './dtos/shifts.add-shift.dto';
 import { getShiftsPipelineWithDate } from './aggregations/shifts.aggregation';
+import { access } from 'fs';
 
 @Injectable()
 export class ShiftsService {
@@ -43,5 +44,56 @@ export class ShiftsService {
 
   async getShiftsByDate(date: Date) {
     return await this.model.aggregate(getShiftsPipelineWithDate(date));
+  }
+
+  async deleteShift(date: Date, shift_type: string, user) {
+    if (!user.is_admin) {
+      throw new UnauthorizedException({
+        message: "Cannot delete a shift if you're not an admin",
+      });
+    }
+
+    return await this.model.deleteMany({ date, shift_type });
+  }
+
+  async deleteCluster(date: Date, shift_type: string, timestamp: Date, user) {
+    const cluster = await this.model.findOne({ date, shift_type, timestamp });
+
+    if (!user.is_admin) {
+      if (!cluster.author._id.equals(user.sub)) {
+        throw new UnauthorizedException({
+          message:
+            "Cannot delete a cluster if you're not an admin or if you didn't insert it",
+        });
+      }
+    }
+
+    return await this.model.deleteMany({ date, shift_type, timestamp });
+  }
+
+  async deleteStaffRow(
+    date: Date,
+    shift_type: string,
+    timestamp: Date,
+    staff: string,
+    user,
+  ) {
+    const staff_row = await this.model.findOne({
+      date,
+      shift_type,
+      timestamp,
+      staff,
+    });
+
+    if (!user.is_admin) {
+      if (!staff_row.author._id.equals(user.sub)) {
+        throw new UnauthorizedException({
+          message:
+            "Cannot delete a staff row if you're not an admin or if you didn't insert it",
+        });
+      }
+    }
+
+    return await this.model.deleteMany({ date, shift_type, timestamp, staff });
   }
 }

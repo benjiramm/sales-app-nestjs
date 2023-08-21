@@ -63,7 +63,9 @@ export class ShiftsController {
     @Param('date') date: string,
     @Param('shift_type') shift_type: string,
     @Req() req,
-  ) {}
+  ) {
+    return this.shiftsService.deleteShift(new Date(date), shift_type, req.user);
+  }
 
   // DELETE cluster (admin and author only)
   @UseGuards(AuthGuard)
@@ -76,7 +78,14 @@ export class ShiftsController {
     @Param('shift_type') shift_type: string,
     @Param('timestamp') timestamp: string,
     @Req() req,
-  ) {}
+  ) {
+    return this.shiftsService.deleteCluster(
+      new Date(date),
+      shift_type,
+      new Date(timestamp),
+      req.user,
+    );
+  }
 
   // DELETE row (admin and author only)
   @UseGuards(AuthGuard)
@@ -86,11 +95,19 @@ export class ShiftsController {
   @ApiResponse({ status: 200 })
   @ApiBearerAuth()
   @Delete(':date/:shift_type/:timestamp/:staff_id')
-  deleteShiftRow(
+  deleteStaffRow(
     @Param('date') date: string,
     @Param('shift_type') shift_type: string,
     @Param('timestamp') timestamp: string,
-    @Param('staff_id') staff_id: string,
+    @Param('staff_id') staff: string,
     @Req() req,
-  ) {}
+  ) {
+    return this.shiftsService.deleteStaffRow(
+      new Date(date),
+      shift_type,
+      new Date(timestamp),
+      staff,
+      req.user,
+    );
+  }
 }
