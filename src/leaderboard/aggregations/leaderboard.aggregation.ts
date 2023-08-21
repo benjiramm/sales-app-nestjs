@@ -6,8 +6,6 @@ export const getPipelineWithDate = (date: Date): PipelineStage[] => {
   const endOfWeek = dayjs(date).endOf('week').toDate();
 
   return [
-    // UNCOMMENT ON PRODUCTION
-    /* 
     {
       $match: {
         date: {
@@ -16,7 +14,6 @@ export const getPipelineWithDate = (date: Date): PipelineStage[] => {
         },
       },
     },
-    */
     {
       $lookup: {
         from: 'staffs',

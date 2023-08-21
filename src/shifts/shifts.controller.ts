@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -51,4 +52,45 @@ export class ShiftsController {
   get(@Param('date') date: string) {
     return this.shiftsService.getShiftsByDate(new Date(date));
   }
+
+  // DELETE shift (admin only)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'delete shift by date & type' })
+  @ApiResponse({ status: 200 })
+  @ApiBearerAuth()
+  @Delete(':date/:shift_type')
+  deleteShift(
+    @Param('date') date: string,
+    @Param('shift_type') shift_type: string,
+    @Req() req,
+  ) {}
+
+  // DELETE cluster (admin and author only)
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'delete cluster by date, type, and timestamp' })
+  @ApiResponse({ status: 200 })
+  @ApiBearerAuth()
+  @Delete(':date/:shift_type/:timestamp')
+  deleteCluster(
+    @Param('date') date: string,
+    @Param('shift_type') shift_type: string,
+    @Param('timestamp') timestamp: string,
+    @Req() req,
+  ) {}
+
+  // DELETE row (admin and author only)
+  @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'delete staff row by timestamp, date, type, and staff_id',
+  })
+  @ApiResponse({ status: 200 })
+  @ApiBearerAuth()
+  @Delete(':date/:shift_type/:timestamp/:staff_id')
+  deleteShiftRow(
+    @Param('date') date: string,
+    @Param('shift_type') shift_type: string,
+    @Param('timestamp') timestamp: string,
+    @Param('staff_id') staff_id: string,
+    @Req() req,
+  ) {}
 }
