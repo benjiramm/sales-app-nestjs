@@ -3,11 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateItemDto } from './dtos/items.add-item.dto';
 import { Item, ItemDocument } from './schemas/items.schema';
+import { Log, LogDocument } from 'src/logs/schemas/logs.schema';
 
 @Injectable()
 export class ItemsService {
   constructor(
     @InjectModel(Item.name) private readonly model: Model<ItemDocument>,
+    @InjectModel(Log.name) private readonly logModel: Model<LogDocument>,
   ) {}
 
   async getAll() {
@@ -51,6 +53,7 @@ export class ItemsService {
     if (!item) {
       throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
     }
+    await this.logModel.deleteMany({ item: id });
 
     return await this.model.findByIdAndDelete(id);
   }

@@ -10,11 +10,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Mongoose, Types } from 'mongoose';
 import { CreateStaffDto } from './dtos/staff.create.dto';
 import { Staff, StaffDocument } from './schemas/staff.schema';
+import { Log, LogDocument } from 'src/logs/schemas/logs.schema';
 
 @Injectable()
 export class StaffService {
   constructor(
     @InjectModel(Staff.name) private readonly model: Model<StaffDocument>,
+    @InjectModel(Log.name) private readonly logModel: Model<LogDocument>,
   ) {}
 
   async getAll() {
@@ -55,6 +57,8 @@ export class StaffService {
     if (!staff) {
       throw new HttpException('Staff not found', HttpStatus.NOT_FOUND);
     }
+
+    await this.logModel.deleteMany({ staff: id });
     return await this.model.findByIdAndDelete(id);
   }
 }
