@@ -63,7 +63,7 @@ export class UsersService {
       };
     }
 
-    return await this.model.updateOne({ _id: user._id }, new_document, {
+    return await this.model.updateOne({ _id: user_id }, new_document, {
       new: true,
     });
   }
