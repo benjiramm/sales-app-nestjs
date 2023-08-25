@@ -6,6 +6,7 @@ import {
   Inject,
   Param,
   Post,
+  Put,
   Req,
   UnauthorizedException,
   UseGuards,
@@ -20,8 +21,9 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { LoginUserDto } from 'src/auth/dtos/auth.login-user.dto';
-import { User } from './schemas/user.schema';
+import { User, UserDocument } from './schemas/user.schema';
 import { UsersService } from './users.service';
+import { UserEditDto } from './dtos/user.edit.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -48,6 +50,22 @@ export class UsersController {
     }
 
     return this.usersService.create(loginUserDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Put(':user_id')
+  @ApiOperation({ summary: 'edit user' })
+  @ApiResponse({ status: 200, type: User })
+  @ApiBearerAuth()
+  editUser(
+    @Req() req,
+    @Param('user_id') user_id: string,
+    @Body() new_user: UserEditDto,
+  ) {
+    if (!req.user.is_admin) {
+      throw new UnauthorizedException();
+    }
+    return this.usersService.editUser(user_id, new_user);
   }
 
   @UseGuards(AuthGuard)

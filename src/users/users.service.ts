@@ -11,6 +11,7 @@ import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
 import { LoginUserDto } from 'src/auth/dtos/auth.login-user.dto';
 import { hash } from 'bcrypt';
+import { UserEditDto } from './dtos/user.edit.dto';
 @Injectable()
 export class UsersService {
   constructor(
@@ -40,7 +41,7 @@ export class UsersService {
     return await this.model.find().exec();
   }
 
-  async getUserById(id: number): Promise<User> {
+  async getUserById(id: string): Promise<User> {
     const user = await this.model.findById(id).exec();
     if (user) {
       return user;
@@ -49,6 +50,11 @@ export class UsersService {
       'User with this ID does not exist',
       HttpStatus.NOT_FOUND,
     );
+  }
+
+  async editUser(user_id: string, new_user: UserEditDto) {
+    const user = await this.getUserById(user_id);
+    return await this.model.updateOne(user._id, new_user, { new: true });
   }
 
   async deleteUserById(id: string): Promise<User> {
