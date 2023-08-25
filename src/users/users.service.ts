@@ -54,7 +54,9 @@ export class UsersService {
 
   async editUser(user_id: string, new_user: UserEditDto) {
     const user = await this.getUserById(user_id);
-    return await this.model.updateOne(user._id, new_user, { new: true });
+    return await this.model.updateOne({ _id: user._id }, new_user, {
+      new: true,
+    });
   }
 
   async deleteUserById(id: string): Promise<User> {
