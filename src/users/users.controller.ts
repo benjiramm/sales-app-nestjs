@@ -65,7 +65,7 @@ export class UsersController {
     if (!req.user.is_admin) {
       throw new UnauthorizedException();
     }
-    return this.usersService.editUser(user_id, new_user);
+    return this.usersService.editUser(user_id, new_user, req.user);
   }
 
   @UseGuards(AuthGuard)

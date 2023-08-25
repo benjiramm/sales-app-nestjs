@@ -52,9 +52,18 @@ export class UsersService {
     );
   }
 
-  async editUser(user_id: string, new_user: UserEditDto) {
-    const user = await this.getUserById(user_id);
-    return await this.model.updateOne({ _id: user._id }, new_user, {
+  async editUser(user_id: string, new_user: UserEditDto, user) {
+    const requestedUser = await this.getUserById(user_id);
+
+    // cannot remove authorization from yourself
+    let new_document = new_user as any;
+    if (user.sub === user_id) {
+      new_document = {
+        username: new_user.username,
+      };
+    }
+
+    return await this.model.updateOne({ _id: user._id }, new_document, {
       new: true,
     });
   }
