@@ -68,7 +68,13 @@ export class UsersService {
     });
   }
 
-  async deleteUserById(id: string): Promise<User> {
-    return await this.model.findByIdAndDelete(id);
+  async deleteUserById(id: string, user): Promise<User> {
+    if (id !== user.sub) {
+      return await this.model.findByIdAndDelete(id);
+    }
+    throw new HttpException(
+      'Users cannot delete themselves',
+      HttpStatus.NOT_FOUND,
+    );
   }
 }

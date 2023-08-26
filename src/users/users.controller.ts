@@ -77,6 +77,6 @@ export class UsersController {
     if (!req.user.is_admin) {
       throw new UnauthorizedException();
     }
-    return this.usersService.deleteUserById(user_id);
+    return this.usersService.deleteUserById(user_id, req.user);
   }
 }
