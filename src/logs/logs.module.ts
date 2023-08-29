@@ -9,4 +9,5 @@ import { Log, LogSchema } from './schemas/logs.schema';
   controllers: [LogsController],
   providers: [LogsService],
 })
+//comment
 export class LogsModule {}
