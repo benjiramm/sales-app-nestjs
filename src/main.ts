@@ -12,7 +12,10 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: 'https://sales-app-v2-client-224196db8963.herokuapp.com',
+    origin: [
+      'https://sales-app-v2-client-224196db8963.herokuapp.com',
+      'http://localhost:3001',
+    ],
     credentials: true,
     allowedHeaders: [
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie',
