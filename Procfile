@@ -1,1 +1,1 @@
-web: npm run start:prod
+web: ls -l && npm rund build && ls -l dist && npm run start:prod
