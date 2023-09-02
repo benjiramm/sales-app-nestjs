@@ -12,7 +12,7 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: 'https://sellingcompetition.com',
+    origin: 'https://www.sellingcompetition.com',
     //'http://localhost:3001'
     credentials: true,
     allowedHeaders: [
