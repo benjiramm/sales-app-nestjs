@@ -50,7 +50,7 @@ export class AuthService {
       expires: new Date(new Date().getTime() + 30 * 1000 * 60), //1 hour
       httpOnly: true,
       sameSite: 'none',
-      secure: false,
+      secure: true,
     });
     return response.send('logged in successfully');
   }
