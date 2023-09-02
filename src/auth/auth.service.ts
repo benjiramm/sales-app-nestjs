@@ -49,7 +49,7 @@ export class AuthService {
     response.cookie('token', jwt, {
       expires: new Date(new Date().getTime() + 30 * 1000 * 60), //1 hour
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       secure: true,
       path: '/',
     });
