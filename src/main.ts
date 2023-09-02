@@ -11,14 +11,14 @@ async function bootstrap() {
   app.use(cookieParser());
 
   // CORS
-  // app.enableCors({
-  //   origin: 'https://sellingcompetition.com',
-  //   //'http://localhost:3001'
-  //   credentials: true,
-  //   allowedHeaders: [
-  //     'Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie',
-  //   ],
-  // });
+  app.enableCors({
+    origin: 'https://sellingcompetition.com',
+    //'http://localhost:3001'
+    credentials: true,
+    allowedHeaders: [
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie',
+    ],
+  });
 
   dotenv.config();
 
