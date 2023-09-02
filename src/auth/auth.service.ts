@@ -51,7 +51,6 @@ export class AuthService {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
-      domain: 'sellingcompetition.com',
     });
     return response.send('logged in successfully');
   }
