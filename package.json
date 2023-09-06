@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "dev": "concurrently \"nest start\" \"cd nextjs-client && npm run dev \""
+    "dev": "concurrently \"nest start\" \"cd nextjs-client && npm run dev \"",
+    "devstart": "nodemon \"nest start\""
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -27,7 +28,9 @@
     "@nestjs/jwt": "^10.0.3",
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/platform-socket.io": "^10.2.4",
     "@nestjs/swagger": "^6.3.0",
+    "@nestjs/websockets": "^10.2.4",
     "@types/axios": "^0.14.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
@@ -35,6 +38,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
+    "@types/socket.io": "^3.0.2",
     "bcrypt": "^5.1.0",
     "class-validator": "^0.14.0",
     "concurrently": "^8.0.1",
