@@ -10,6 +10,7 @@ import { ItemsModule } from './items/items.module';
 import { LogsModule } from './logs/logs.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ShiftsModule } from './shifts/shifts.module';
+import { ChatGateway } from './chat/chat.gateway';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { ShiftsModule } from './shifts/shifts.module';
     ShiftsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule {}
