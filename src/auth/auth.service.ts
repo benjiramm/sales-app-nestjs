@@ -1,11 +1,16 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { use } from 'passport';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dtos/auth.login-user.dto';
 import { Response } from 'express';
-import cookieParser from 'cookie-parser';
+import { User } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -53,5 +58,19 @@ export class AuthService {
       secure: true,
     });
     return response.send('logged in successfully');
+  }
+
+  public async getUserFromAuthenticationToken(token: string): Promise<User> {
+    try {
+      console.log('====TOKEN====', token);
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_SECRET,
+      });
+      if (payload.sub) {
+        return this.usersService.getUserById(payload.sub);
+      }
+    } catch {
+      throw new UnauthorizedException();
+    }
   }
 }

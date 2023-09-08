@@ -41,6 +41,7 @@
     "bcrypt": "^5.1.0",
     "class-validator": "^0.14.0",
     "concurrently": "^8.0.1",
+    "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",

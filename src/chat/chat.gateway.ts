@@ -1,27 +1,45 @@
 import {
   ConnectedSocket,
   MessageBody,
+  OnGatewayConnection,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
+import { Message, MessageDocument } from 'src/messages/schemas/messages.schema';
+import { ESocketActions } from './types/socket.types';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { MessagesService } from 'src/messages/messages.service';
 
 @WebSocketGateway()
-export class ChatGateway {
+export class ChatGateway implements OnGatewayConnection {
+  constructor(private readonly messagesService: MessagesService) {}
   @WebSocketServer()
-  server;
+  server: Server;
 
-  handleConnection(client: Socket) {
-    console.log(client.id);
+  async handleConnection(socket: Socket) {}
+
+  @SubscribeMessage(ESocketActions.SEND_MESSAGE)
+  async getMessage(
+    @ConnectedSocket() socket: Socket,
+    @MessageBody() content: any,
+  ) {
+    // store the message in database with new Messages module
+
+    // send the message to all other sockets
+    console.log('received message -> ', content);
+
+    const message = await this.messagesService.saveMessage(content);
+
+    this.server.sockets.emit(ESocketActions.RECEIVE_MESSAGE, message);
   }
 
-  @SubscribeMessage('message')
-  handleMessage(
-    @MessageBody() message: string,
-    @ConnectedSocket() client: Socket,
-  ): void {
-    //console.log(client.id, message);
-    this.server.emit('message', message);
+  @SubscribeMessage(ESocketActions.GET_ALL_MESSAGES)
+  async getAllMessages(@ConnectedSocket() socket: Socket) {
+    // get all messages - blank for now (using Messages service)
+    const messages = await this.messagesService.getAllMessages();
+    socket.emit(ESocketActions.RECEIVE_ALL_MESSAGES, messages);
   }
 }
