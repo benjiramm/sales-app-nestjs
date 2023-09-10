@@ -13,7 +13,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MessagesService } from 'src/messages/messages.service';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class ChatGateway implements OnGatewayConnection {
   constructor(private readonly messagesService: MessagesService) {}
   @WebSocketServer()
