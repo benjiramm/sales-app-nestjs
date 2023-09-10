@@ -17,5 +17,6 @@ dotenv.config();
       signOptions: { expiresIn: '3600s' },
     }),
   ],
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -10,6 +10,9 @@ import { ItemsModule } from './items/items.module';
 import { LogsModule } from './logs/logs.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ShiftsModule } from './shifts/shifts.module';
+import { ChatGateway } from './chat/chat.gateway';
+import { Message, MessageSchema } from './messages/schemas/messages.schema';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -25,8 +28,9 @@ import { ShiftsModule } from './shifts/shifts.module';
     LogsModule,
     LeaderboardModule,
     ShiftsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule {}
