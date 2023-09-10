@@ -7,10 +7,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Message, MessageDocument } from 'src/messages/schemas/messages.schema';
 import { ESocketActions } from './types/socket.types';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { MessagesService } from 'src/messages/messages.service';
 
 @WebSocketGateway()
