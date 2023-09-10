@@ -16,7 +16,6 @@ async function bootstrap() {
       ? 'https://www.sellingcompetition.com'
       : 'http://localhost:3001',
     credentials: true,
-
     allowedHeaders: [
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie,Access-Control-Allow-Origin',
     ],
@@ -25,15 +24,15 @@ async function bootstrap() {
   dotenv.config();
 
   // Setting up swagger
-  const config = new DocumentBuilder()
-    .setTitle('Sales App API')
-    .setDescription('the backend of the Sales App')
-    .setVersion('1.0')
-    .addTag('Sales App NestJS routes')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/api/docs', app, document);
+  // const config = new DocumentBuilder()
+  //   .setTitle('Sales App API')
+  //   .setDescription('the backend of the Sales App')
+  //   .setVersion('1.0')
+  //   .addTag('Sales App NestJS routes')
+  //   .addBearerAuth()
+  //   .build();
+  // const document = SwaggerModule.createDocument(app, config);
+  // SwaggerModule.setup('/api/docs', app, document);
 
   await app.listen(process.env.PORT || 3000);
 }
