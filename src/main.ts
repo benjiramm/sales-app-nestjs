@@ -16,6 +16,7 @@ async function bootstrap() {
       ? 'https://www.sellingcompetition.com'
       : 'http://localhost:3001',
     credentials: true,
+
     allowedHeaders: [
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie,Access-Control-Allow-Origin',
     ],
