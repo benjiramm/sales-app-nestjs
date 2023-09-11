@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/platform-socket.io": "^10.2.4",
     "@nestjs/swagger": "^6.3.0",
-    "@nestjs/websockets": "^10.2.4",
+    "@nestjs/websockets": "^9.0.0",
     "@types/axios": "^0.14.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
